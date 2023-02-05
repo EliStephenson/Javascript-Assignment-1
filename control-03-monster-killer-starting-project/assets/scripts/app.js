@@ -23,7 +23,7 @@ function attackHandler() { // event handler function for the attack feature
 }
 
 function strongAttackHandler() {
-    
+    const strongDamage = dealMonsterDamage(ATTACK_VALUE);
 }
 
 attackBtn.addEventListener('click',attackHandler);

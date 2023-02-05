@@ -1,5 +1,6 @@
 const ATTACK_VALUE = 10; // how hard we can hit for a maximum the capitals indicate global variable generally
-const MONSTER_ATTACK_VALUE = 10;
+const STRONG_ATTACK_VALUE = 17;
+const MONSTER_ATTACK_VALUE = 14;
 
 let chosenMaxLife = 100;
 let currentMonsterHealth = chosenMaxLife;
@@ -23,8 +24,18 @@ function attackHandler() { // event handler function for the attack feature
 }
 
 function strongAttackHandler() {
-    const strongDamage = dealMonsterDamage(ATTACK_VALUE);
+    const damage = dealMonsterDamage(STRONG_ATTACK_VALUE);
+    currentMonsterHealth -= damage;
+    const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
+    currentPlayerHealth -= playerDamage;
+    if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) { 
+        alert('YOU WIN!')
+    } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0){
+        alert('YOU DIED')
+    } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
+        alert('YOU HAVE DIED BUT TAKEN THE MONSTER WITH YOU')
+    }
 }
 
 attackBtn.addEventListener('click',attackHandler);
-strongAttackBtn.addEventListener('click')
+strongAttackBtn.addEventListener('click',strongAttackHandler)

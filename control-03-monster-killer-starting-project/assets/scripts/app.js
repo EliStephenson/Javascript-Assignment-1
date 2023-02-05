@@ -9,8 +9,14 @@ let currentPlayerHealth = chosenMaxLife;
 
 adjustHealthBars(chosenMaxLife);
 
-function attackHandler() { // event handler function for the attack feature
-    const damage = dealMonsterDamage(ATTACK_VALUE);
+function attackMonster(attackMode) {
+    let maxDamage;
+    if (attackMode === 'ATTACK') {
+        maxDamage = ATTACK_VALUE;
+    } else if (attackMode === 'STRONG_ATTACK') {
+        maxDamage = STRONG_ATTACK_VALUE;
+    }
+    const damage = dealMonsterDamage(maxDamage);
     currentMonsterHealth -= damage;
     const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
     currentPlayerHealth -= playerDamage;
@@ -23,18 +29,13 @@ function attackHandler() { // event handler function for the attack feature
     }
 }
 
+
+function attackHandler() { // event handler function for the attack feature
+    attackMonster('ATTACK');
+}
+
 function strongAttackHandler() {
-    const damage = dealMonsterDamage(STRONG_ATTACK_VALUE);
-    currentMonsterHealth -= damage;
-    const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
-    currentPlayerHealth -= playerDamage;
-    if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) { 
-        alert('YOU WIN!')
-    } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0){
-        alert('YOU DIED')
-    } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
-        alert('YOU HAVE DIED BUT TAKEN THE MONSTER WITH YOU')
-    }
+    attackMonster('STRONG_ATTACK');
 }
 
 attackBtn.addEventListener('click',attackHandler);

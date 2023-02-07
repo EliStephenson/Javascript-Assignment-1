@@ -1,17 +1,29 @@
 const ATTACK_VALUE = 10; // how hard we can hit for a maximum the capitals indicate global variable generally
 const STRONG_ATTACK_VALUE = 17;
-const MONSTER_ATTACK_VALUE = 14;
+const MONSTER_ATTACK_VALUE = 20;
 const HEAL_VALUE = 10;
 
 let chosenMaxLife = 100;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
+let hasBonusLife = true; //typical naming convention for a boolean val
 
 adjustHealthBars(chosenMaxLife);
 
 function endRound() {
+  const initialPlayerHealth = currentPlayerHealth;
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
   currentPlayerHealth -= playerDamage;
+
+  if (currentPlayerHealth <= 0 && hasBonusLife) {
+    // could do hasBonusLife === true but just the name works for booleans cause it checks if true for the condition
+    hasBonusLife = false;
+    removeBonusLife();
+    currentPlayerHealth = initialPlayerHealth; 
+    setPlayerHealth(currentPlayerHealth);
+    alert('bonus life used, be more careful');
+  }
+
   if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
     alert('YOU WIN!');
   } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {

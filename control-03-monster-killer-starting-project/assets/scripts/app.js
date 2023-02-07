@@ -10,6 +10,12 @@ let hasBonusLife = true; //typical naming convention for a boolean val
 
 adjustHealthBars(chosenMaxLife);
 
+function reset() {
+  currentMonsterHealth = chosenMaxLife;
+  currentPlayerHealth = chosenMaxLife;
+  resetGame(chosenMaxLife);
+}
+
 function endRound() {
   const initialPlayerHealth = currentPlayerHealth;
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
@@ -19,7 +25,7 @@ function endRound() {
     // could do hasBonusLife === true but just the name works for booleans cause it checks if true for the condition
     hasBonusLife = false;
     removeBonusLife();
-    currentPlayerHealth = initialPlayerHealth; 
+    currentPlayerHealth = initialPlayerHealth;
     setPlayerHealth(currentPlayerHealth);
     alert('bonus life used, be more careful');
   }
@@ -31,6 +37,11 @@ function endRound() {
   } else if (currentMonsterHealth <= 0 && currentPlayerHealth <= 0) {
     alert('YOU HAVE DIED BUT TAKEN THE MONSTER WITH YOU');
   }
+
+  if (currentMonsterHealth <= 0 || currentPlayerHealth <=0){
+    reset();
+  }
+
 }
 
 function attackMonster(attackMode) {

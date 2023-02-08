@@ -3,7 +3,15 @@ const STRONG_ATTACK_VALUE = 17;
 const MONSTER_ATTACK_VALUE = 20;
 const HEAL_VALUE = 10;
 
-let chosenMaxLife = 100;
+const enteredNumber = prompt('Maximum Life for you and the monster', '100');
+
+
+let chosenMaxLife = parseInt(enteredNumber);
+
+if (isNaN(chosenMaxLife) || chosenMaxLife<= 0){ // checks if the above value wasnt a number and couldnt become and int
+    chosenMaxLife = 100; // 100 is the defualt value if prompt doesnt yeild an acceptable value
+}
+
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 let hasBonusLife = true; //typical naming convention for a boolean val

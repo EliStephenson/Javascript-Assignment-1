@@ -220,10 +220,20 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-//   for (let i = 0; i < battleLog.length; i++) {
-//     console.log('--------');
-//   }
-
+  for (let i = 0; i < 3; i++) {
+    console.log('--------');
+  }
+  let j = 0;
+  outerWhile: do { //making a labeled statement for the loop 
+    console.log('outer',j);
+    innerFor: for(let k=0; k<5; k++){
+      if (k === 3) {
+        break outerWhile; // allows us to break a different loop than the one that we are currently in
+      }
+      console.log('inner',k);
+    }
+    j++;
+  } while (j < 3);
   //can also decrement for loops
   //   for (let i = 0; i < battleLog.length; i++) {
   //     console.log(battleLog[i]);

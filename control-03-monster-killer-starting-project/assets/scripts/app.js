@@ -24,7 +24,19 @@ function getMaxLifeValues() {
   }
   return parsedValue;
 }
-let chosenMaxLife = getMaxLifeValues();
+
+let chosenMaxLife;
+
+try {
+  chosenMaxLife = getMaxLifeValues();
+} catch (error) {
+  console.log(error);
+  chosenMaxLife = 100;
+  alert('You entered invalid date, defaultvalue of 100 used');
+  throw error; // rethrow error if you want it in an analytic system/server
+} finally { // finally executes everytime not always needed tho
+  // dont need this but its good for reference
+}
 
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;

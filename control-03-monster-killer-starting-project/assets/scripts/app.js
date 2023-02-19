@@ -11,15 +11,20 @@ const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
 const LOG_EVENT_PLAYER_HEAL = 'PLAYER_HEAL';
 const LOG_EVENT_END_GAME = 'END_GAME';
 
-const enteredNumber = prompt('Maximum Life for you and the monster', '100');
-
-let chosenMaxLife = parseInt(enteredNumber);
 let battleLog = [];
 
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
-  // checks if the above value wasnt a number and couldnt become and int
-  chosenMaxLife = 100; // 100 is the defualt value if prompt doesnt yeild an acceptable value
+function getMaxLifeValues() {
+  const enteredNumber = prompt('Maximum Life for you and the monster', '100');
+
+  const parsedValue = parseInt(enteredNumber);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    // checks if the above value wasnt a number and couldnt become and int
+    //chosenMaxLife = 100; // 100 is the defualt value if prompt doesnt yeild an acceptable value
+    throw {message: 'Invalied user input. Not a number'};
+  }
+  return parsedValue;
 }
+let chosenMaxLife = getMaxLifeValues();
 
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
@@ -229,6 +234,7 @@ function printLogHandler() {
     innerFor: for(let k=0; k<5; k++){
       if (k === 3) {
         break outerWhile; // allows us to break a different loop than the one that we are currently in
+        //continue outerWhile; // dangerous because it creates an infinite loop
       }
       console.log('inner',k);
     }

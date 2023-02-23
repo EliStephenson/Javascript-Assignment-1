@@ -49,6 +49,7 @@ body {
 
 .panel.active h3 {
     opacity: 1;
+    transition:opacity 0.3s ease-in 0.4s; //0.4 seconds is the delay
 }
 
 @media(max-width: 480px) {
@@ -57,6 +58,8 @@ body {
     }
 
     .panel:nth-of-type(4),.panel:nth-of-type(5){
-        display: none; // media query that gets rid of displaying 4 and 5 if screen is small
+        display: none; 
+        //media query that gets rid of displaying 4 and 5 if screen is small
+        
     }
 }

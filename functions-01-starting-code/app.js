@@ -43,7 +43,7 @@ const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) =>
     ? RESULT_PLAYER_WIN
     : RESULT_COMPUTER_WIN;
 
-startGameBtn.addEventListener('click', function startGame() {
+startGameBtn.addEventListener('click', () => { // ADDES CAllback function for the event listener called for you by something else
   if (gameIsRunning) {
     return;
   }
@@ -83,11 +83,33 @@ startGameBtn.addEventListener('click', function startGame() {
 
 // to do somthing like this we can use a rest operator so that we can put in arguments instead of arrays 
 
-const sumUp = (...numbers) => {  // ... takes all arguments and builds an array inside of a funciton
+const sumUp = (resultHandler, ...numbers) => {  // ... takes all arguments and builds an array inside of a funciton
+    const validateNumber = (number) => { // this function is only inside of another function
+        return isNaN(number) ? 0 : number;
+    };
+
     let sum = 0;
     for (const num of numbers) {
         sum += num;
+
     }
-    return sum;
+    resultHandler(sum);
 };
-console.log(sumUp(1,5,10,-3,6,10,25,88)); // rest operator must always be last in the list 
+//sumUp(showResult,1,5,10,-3,6,10,25,88);
+ // rest operator must always be last in the list 
+// show result is a callback funciton to execute the funciton when something happens 
+
+const subtractUp = function() {
+    let sum = 0;
+    for (const num of arguments) { // arguments is built into javascript this will merge into array like the rest operator
+        sum -= num;
+    }
+        return sum;
+    
+};
+
+const showResult = (result) => {
+    alert('the result after adding all numebers is ' + result);
+};
+
+sumUp(showResult,1,5,10,-3,6,10,25,88);

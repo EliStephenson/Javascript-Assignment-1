@@ -83,33 +83,40 @@ startGameBtn.addEventListener('click', () => { // ADDES CAllback function for th
 
 // to do somthing like this we can use a rest operator so that we can put in arguments instead of arrays 
 
-const sumUp = (resultHandler, ...numbers) => {  // ... takes all arguments and builds an array inside of a funciton
+const combine = (resultHandler, operation,  ...numbers) => {  // ... takes all arguments and builds an array inside of a funciton
     const validateNumber = (number) => { // this function is only inside of another function
         return isNaN(number) ? 0 : number;
     };
 
     let sum = 0;
     for (const num of numbers) {
-        sum += num;
+      if (operation === 'ADD') {
+        sum += validateNumber(num);
+      } else {
+        sum -= validateNumber(num)
+      }
+       
 
     }
-    resultHandler(sum);
+    resultHandler(sum, 'the result after adding all numebers is ');
 };
 //sumUp(showResult,1,5,10,-3,6,10,25,88);
  // rest operator must always be last in the list 
 // show result is a callback funciton to execute the funciton when something happens 
 
-const subtractUp = function() {
-    let sum = 0;
-    for (const num of arguments) { // arguments is built into javascript this will merge into array like the rest operator
-        sum -= num;
-    }
-        return sum;
+// const subtractUp = function(resultHandler, ...numbers) {
+//     let sum = 0;
+//     for (const num of numbers) { // arguments is built into javascript this will merge into array like the rest operator
+//         sum -= num;
+//     }
+//         resultHandler(sum, 'the result after subtracting all numebers is ');
     
+// };
+
+const showResult = (messageText, result) => {
+    alert(messageText + ' ' + result);
 };
 
-const showResult = (result) => {
-    alert('the result after adding all numebers is ' + result);
-};
 
-sumUp(showResult,1,5,10,-3,6,10,25,88);
+combine(showResult.bind(this, 'the result after adding all numbers is '),'ADD',1,5,10,-3,6,10,25,88);
+combine(showResult.bind(this, 'the result after subtracting all numbers is ','Subtract',1,5,10,-3,6,10,25,88));

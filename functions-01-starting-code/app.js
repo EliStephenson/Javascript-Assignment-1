@@ -34,16 +34,14 @@ const getComputerChoice = () => {
   }
 };
 
-
-const getWinner = (cChoice, pChoice) => 
-    cChoice === pChoice
+const getWinner = (cChoice, pChoice) =>
+  cChoice === pChoice
     ? RESULT_DRAW
     : (cChoice === ROCK && pChoice === PAPER) ||
       (cChoice === PAPER && pChoice === SCISSORS) ||
       (cChoice === SCISSORS && pChoice === ROCK)
     ? RESULT_PLAYER_WIN
     : RESULT_COMPUTER_WIN;
-
 
 startGameBtn.addEventListener('click', function startGame() {
   if (gameIsRunning) {
@@ -54,5 +52,14 @@ startGameBtn.addEventListener('click', function startGame() {
   const playerChoice = getPlayerChoice();
   const computerChoice = getComputerChoice();
   const winner = getWinner(computerChoice, playerChoice);
-  console.log(winner);
+  let message = `You picked ${playerChoice}, computer picked ${computerChoice},therefore you `;
+  if (winner === RESULT_DRAW) {
+    message = message + 'had a draw.';
+  } else if  (winner === RESULT_PLAYER_WIN) {
+  message = message + 'won.';
+  } else {
+    message = message + 'lost.'
+  }
+  alert(message);
+  gameIsRunning = false;
 }); // name just used for debugging (give anonymous functions a name)
